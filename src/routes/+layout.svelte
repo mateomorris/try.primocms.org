@@ -1,48 +1,48 @@
 <script>
-	import { setContext } from 'svelte';
-	import '$lib/assets/reset.css';
-	import { browser } from '$app/environment';
-	import { mouse_position } from '$lib/stores';
-	import { onMount } from 'svelte';
-	import { fieldTypes, registerProcessors, modal } from 'primo-editor';
-	import { supabase as supabaseClient } from '$lib/supabase';
-	import Modal from '$lib/components/Modal.svelte';
-	import ImageField from '../extensions/FieldTypes/ImageField.svelte';
-	import Deploy from './Deploy.svelte';
-	import { invalidate } from '$app/navigation';
+	import { setContext } from 'svelte'
+	import '$lib/assets/reset.css'
+	import { browser } from '$app/environment'
+	import { mouse_position } from '$lib/stores'
+	import { onMount } from 'svelte'
+	import { fieldTypes, registerProcessors, modal } from '@primocms/builder'
+	import { supabase as supabaseClient } from '$lib/supabase'
+	import Modal from '$lib/components/Modal.svelte'
+	import ImageField from '../extensions/FieldTypes/ImageField.svelte'
+	import Deploy from './Deploy.svelte'
+	import { invalidate } from '$app/navigation'
 
 	onMount(() => {
 		const { data } = supabaseClient.auth.onAuthStateChange(() => {
-			invalidate('supabase:auth');
-		});
+			invalidate('supabase:auth')
+		})
 
 		return () => {
-			if (data) data.subscription.unsubscribe();
-		};
-	});
+			if (data) data.subscription.unsubscribe()
+		}
+	})
 
 	if (browser) {
 		import('../compiler/processors').then(({ html, css }) => {
-			registerProcessors({ html, css });
-		});
+			registerProcessors({ html, css })
+		})
 		modal.register({
 			id: 'DEPLOY',
 			component: Deploy
-		});
+		})
 		fieldTypes.register([
 			{
 				id: 'image',
 				label: 'Image',
 				component: ImageField
 			}
-		]);
-		setContext('track', () => {});
+		])
+		setContext('track', () => {})
 	}
 </script>
 
 <svelte:window
 	on:mousemove={(event) => {
-		$mouse_position = { x: event.x, y: event.y };
+		$mouse_position = { x: event.x, y: event.y }
 	}}
 />
 

@@ -1,8 +1,8 @@
 import {clone as _cloneDeep} from 'lodash-es'
 import PromiseWorker from 'promise-worker';
 import {get} from 'svelte/store'
-import {site} from 'primo-editor'
-import {locale} from 'primo-editor'
+import {site} from '@primocms/builder'
+import {locale} from '@primocms/builder'
 import svelteWorker from './workers/worker?worker'
 import postCSSWorker from './workers/postcss.worker?worker'
 

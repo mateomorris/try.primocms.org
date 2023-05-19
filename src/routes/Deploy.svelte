@@ -7,7 +7,7 @@
 	import { format } from 'timeago.js'
 	import TextInput from '$lib/ui/TextInput.svelte'
 	import Select from '$lib/ui/Select.svelte'
-	import { modal } from 'primo-editor'
+	import { modal } from '@primocms/builder'
 	import { supabase } from '$lib/supabase'
 	// import pages from '$lib/stores/data/pages'
 	import { page } from '$app/stores'

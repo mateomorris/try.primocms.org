@@ -3,7 +3,7 @@ import {get} from 'svelte/store'
 import axios from 'axios'
 import beautify from 'js-beautify'
 import { supabase } from '$lib/supabase'
-import { buildStaticPage } from 'primo-editor'
+import { buildStaticPage } from '@primocms/builder'
 import _ from 'lodash-es'
 import {page} from '$app/stores'
 
