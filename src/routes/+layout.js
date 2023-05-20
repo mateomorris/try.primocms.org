@@ -1,9 +1,14 @@
 import _ from 'lodash-es'
 import axios from 'axios'
+import {redirect} from '@sveltejs/kit'
 
 /** @type {import('@sveltejs/kit').Load} */
 export async function load(event) {
   event.depends('app:data')
+
+  if (event.params.site === 'favicon.ico') {
+    redirect(301, '/')
+  }
 
   const {data:landing_page} = await axios
     .get(

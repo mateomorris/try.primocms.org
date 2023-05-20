@@ -29,45 +29,8 @@
 		rightPaneSize = browser ? (window.innerWidth / 5) * 5 + 'px' : '0px'
 		showing_sidebar = true
 	}
-
-	let siteLocked = false
-
-	onDestroy(() => {
-		// if (siteLocked) modal.hide()
-	})
 </script>
 
-<Primo {data} page_id={$page.params.page} />
-
-<slot />
-
-<div id="app-version">
-	<!-- <span>primo v{primo.version}</span> -->
-	<!-- <span>server v{__SERVER_VERSION__}</span> -->
-</div>
-
-<style lang="postcss">
-	main {
-		overflow: hidden;
-		transition: 0.1s;
-		height: calc(100vh - 54px);
-		overflow: hidden;
-		transition: 0.1s;
-		margin-top: 54px;
-	}
-	[slot='right'] {
-		width: 100%;
-	}
-	[slot='left'] {
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: #121212;
-		color: white;
-	}
-	.expand {
-		height: 100%;
-		display: flex;
-	}
-</style>
+<Primo {data}>
+	<slot />
+</Primo>
