@@ -40,6 +40,10 @@
 	}
 </script>
 
+<svelte:head>
+	<script defer data-domain="try.primocms.org" src="https://plausible.io/js/script.js"></script>
+</svelte:head>
+
 <svelte:window
 	on:mousemove={(event) => {
 		$mouse_position = { x: event.x, y: event.y }
