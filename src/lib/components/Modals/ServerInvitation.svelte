@@ -33,7 +33,14 @@
 		email = ''
 	}
 
-	let editors = [{ email: 'demo@primocms.org', role: 'DEV' }]
+	let editors = [
+		{
+			user: {
+				email: 'demo@primocms.org'
+			},
+			role: 'DEV'
+		}
+	]
 	// get_collaborators().then((res) => {
 	//   editors = res
 	// })
