@@ -170,10 +170,6 @@
 				<a target="blank" href="https://primocms.org/primo-cloud-waitlist">Primo Cloud</a>
 			</p>
 			<div class="buttons">
-				<button class="primo-button" on:click={download_site}>
-					<Icon icon={loading ? 'eos-icons:loading' : 'ic:baseline-download'} />
-					<span>Download</span>
-				</button>
 				{#if github_account}
 					<button class="primo-button primary" on:click={() => (stage = 'CONNECT_REPO')}>
 						<Icon icon="mdi:github" />
