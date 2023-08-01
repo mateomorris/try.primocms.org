@@ -4,4 +4,9 @@
 	export let data
 </script>
 
-<PrimoPage {data} />
+<PrimoPage
+	data={{
+		...data,
+		sections: data.sections
+	}}
+/>
