@@ -12,14 +12,14 @@ export async function load(event) {
 
   const {data:landing_page} = await axios
     .get(
-      'https://raw.githubusercontent.com/mateomorris/primocms.org/main/primo.json'
+      'https://primosites.vercel.app/api/primo-landing-page/themes'
     )
   
   const themes_section = landing_page.sections.find(
-    (section) => section.id === 'ff5c3e56-690b-4220-abe9-9f02a74e1599'
+    (section) => section._meta.id === 'ff5c3e56-690b-4220-abe9-9f02a74e1599'
   )
 
-  const sites = themes_section.content.en.templates.filter(
+  const sites = themes_section.templates.filter(
     (template) => template.price === '0' && template.available
   ).map(theme => ({
     ...theme,
@@ -29,7 +29,7 @@ export async function load(event) {
   }))
 
   return {
-    sites: _.shuffle(sites),
+    sites,
     user: {
       admin: true,
       email: 'demo@primocms.org'
