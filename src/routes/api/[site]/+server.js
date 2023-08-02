@@ -1,37 +1,30 @@
 import { json } from '@sveltejs/kit';
-import {supabaseAdmin} from '$lib/supabaseAdmin'
+import axios from 'axios'
 
 export async function GET({ params }) {
 
-  const [{data:site_res},{data:page_res},{data:subpages_data, error:subpages_error},{data:sections_res}] = await Promise.all([
-    supabaseAdmin.from('sites').select().filter('url', 'eq', params.site).single(),
-    supabaseAdmin.from('pages').select('*, site!inner(url)').match({ url: 'index', 'site.url': params.site }).single(),
-    supabaseAdmin.from('pages').select('*, site!inner(url)').match({ 'site.url': params.site }),
-    supabaseAdmin.from('sections').select('*, page!inner( site!inner(url) )').match({
-      'page.site.url': params.site,
-      'page.url': 'index'
-    })
-  ])
+  const {data} = await axios.get(`https://raw.githubusercontent.com/mateomorris/${params.site}/main/primo.json`)
 
   const site = {
-    ...site_res['content']['en'],
+    ...data.site['content']['en'],
     _meta: {
-      id: site_res.id,
-      name: site_res.name,
-      url: site_res.url,
-      created_at: site_res.created_at
+      id: data.site.id,
+      name: data.site.name,
+      url: data.site.url,
+      created_at: data.site.created_at
     }
   }
 
+  const current_page = data.pages.find(page => page.url === 'index')
   const page = {
-    ...page_res['content']['en'],
+    ...current_page['content']['en'],
     _meta: {
-      id: page_res.id,
-      name: page_res.name,
-      url: page_res.url,
-      created_at: page_res.created_at,
+      id: current_page.id,
+      name: current_page.name,
+      url: current_page.url,
+      created_at: current_page.created_at,
       // filtering here because the query above is not filtering properly (maybe a Supabase bug)
-      subpages: subpages_data?.filter(subpage => subpage.parent === null && subpage.url !== 'index').map(subpage => ({
+      subpages: data.pages.filter(subpage => subpage.parent === null && subpage.url !== 'index').map(subpage => ({
         id: subpage.id,
         name: subpage.name,
         url: subpage.url,
@@ -40,8 +33,7 @@ export async function GET({ params }) {
     },
   }
 
-
-  const sections = sections_res?.sort((a,b) => a.index - b.index).map(section => ({
+  const sections = data.sections.filter(s => s.page === current_page.id).sort((a,b) => a.index - b.index).map(section => ({
     ...section.content.en,
     _meta: {
       id: section.id,
@@ -55,5 +47,4 @@ export async function GET({ params }) {
     page,
     sections
   })
-
 }
