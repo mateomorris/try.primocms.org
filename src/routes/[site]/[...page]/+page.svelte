@@ -5,8 +5,8 @@
 </script>
 
 <PrimoPage
-	data={{
-		...data,
+	page={{
+		...data.page,
 		sections: data.sections
 	}}
 />

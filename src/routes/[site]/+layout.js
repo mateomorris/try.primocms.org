@@ -16,10 +16,7 @@ export async function load(event) {
     site,
     page,
     pages,
-    sections: sections.filter(s => s.page === page.id).map(section => ({
-      ...section,
-      symbol: symbols.find(symbol => symbol.id === section.symbol)
-    })),
+    sections: sections.filter(s => s.page === page.id),
     symbols
   }
 }
