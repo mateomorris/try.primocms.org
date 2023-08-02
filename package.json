@@ -38,7 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@fontsource/fira-code": "^4.5.1",
+		"@fontsource/fira-code": "^5.0.5",
 		"@iconify/svelte": "^2.2.1",
 		"@primocms/builder": "^0.0.32",
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
